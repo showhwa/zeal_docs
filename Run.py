@@ -3,7 +3,6 @@ import time
 import os
 
 
-
 languages = [
     "ActionScript", "Akka", "Angular", "AngularJS", "Ansible", "Apache_HTTP_Server", 
     "Appcelerator_Titanium", "AppleScript", "Arduino", "AWS_JavaScript", "BackboneJS", 
@@ -53,11 +52,10 @@ for language in languages:
     else:
         # pass
         # print(language + ": " + "OK\n")
-        os.mkdir("docs")
-
+        if not os.path.isdir("docs"):
+            os.mkdir("docs")
         download = requests.get(url)
         download.raise_for_status()
         with open(f"docs/{language}.tgz", 'wb') as file:
             file.write(download.content)
         print(f"{language}已下载到当前目录: docs/{language}.tgz")
-
