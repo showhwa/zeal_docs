@@ -53,8 +53,8 @@ for language in languages:
     else:
         # pass
         # print(language + ": " + "OK\n")
-        os.mkdir("docs")
-
+        if not os.path.isdir("docs"):
+            os.mkdir("docs")
         download = requests.get(url)
         download.raise_for_status()
         with open(f"docs/{language}.tgz", 'wb') as file:

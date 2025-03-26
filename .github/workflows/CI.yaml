@@ -36,13 +36,13 @@ jobs:
           git remote set-url origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin main
 
-      - name: Upload to Releases
-        uses: ncipollo/release-action@main
-        if: ${{ steps.upload.outputs.status }} == 'success' && !cancelled()
+      - name: Create and Upload Release
+        id: upload_release
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag: ${{ steps.timestamp.outputs.current_time }}
-          artifacts: docs/*
-          allowUpdates: true
-          removeArtifacts: false
-          replacesArtifacts: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: Release ${{ steps.timestamp.outputs.current_time }}
+          tag: latest
+          file_glob: true
+          overwrite: true
+          file: ./docs/*
