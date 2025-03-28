@@ -17,7 +17,7 @@ jobs:
       - name: Run
         run: |
           pip install requests
-          python Run.py
+          python main.py
           du -sh
 
       - name: Set variables

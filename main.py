@@ -39,6 +39,7 @@ print(len(languages))
 
 # https://www.kapeli.com/feeds/Go.tgz
 # https://go.zealdocs.org/d/com.kapeli/Go/latest
+error_log = ''
 
 for language in languages:
     time.sleep(1)
@@ -47,8 +48,7 @@ for language in languages:
     code = requests.head(url).status_code
     if code == 404:
         print(language + "404\n")
-        with open("error_log.txt", "a", encoding="utf-8") as file:
-            file.write(f"{language}: 404\n")
+        error_log += f'{project}: 404\n'
     else:
         # pass
         # print(language + ": " + "OK\n")
@@ -59,3 +59,10 @@ for language in languages:
         with open(f"docs/{language}.tgz", 'wb') as file:
             file.write(download.content)
         print(f"{language}已下载到当前目录: docs/{language}.tgz")
+
+if not error_log:
+    if os.path.isfile("error_log.txt"):
+        os.remove("error_log.txt")
+else:
+    with open("error_log.txt", "w", encoding="utf-8") as file:
+        file.write(error_log)
