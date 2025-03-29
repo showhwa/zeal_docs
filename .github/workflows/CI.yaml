@@ -69,7 +69,7 @@ jobs:
       # 上传文件到 OneDrive
       - name: Upload files to OneDrive
         run: |
-          rclone copy ./docs gh_bk:/backup_repos/${{ env.BTIME }} -P
-          rclone copy *.py gh_bk:/backup_repos/${{ env.BTIME }} -P
-          rclone copy .github gh_bk:/backup_repos/${{ env.BTIME }} -P
+          rclone copy ./docs gh_bk:/zeal_docs/${{ env.BTIME }}
+          rclone copy main.py gh_bk:/zeal_docs/${{ env.BTIME }}
+          rclone copy .github gh_bk:/zeal_docs/${{ env.BTIME }}
           rm -rf ~/.config/rclone/rclone.conf
